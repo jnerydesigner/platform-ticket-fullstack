@@ -1,19 +1,23 @@
-import React, { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState } from "react";
 
 export default function Home() {
   const [grid, setGrid] = useState<JSX.Element[][]>([]);
 
   const createTable = useCallback((letter: string, rowIndex: number) => {
+    const handleButtonClick = () => {
+      console.log(`Seat ${letter}${rowIndex + 1} clicked`);
+    };
     return (
-      <div
+      <button
         key={`${letter}${rowIndex}`}
         className="w-[50px] h-[50px] bg-slate-500 rounded-full flex justify-center items-center text-white font-bold text-xl"
+        onClick={handleButtonClick}
       >
         <p>
           {letter}
           {rowIndex + 1}
         </p>
-      </div>
+      </button>
     );
   }, []);
 
@@ -38,11 +42,11 @@ export default function Home() {
   }, [createTable]);
 
   return (
-    <div className="mx-72 bg-slate-200 relative">
+    <div className="mx-40 bg-slate-200 relative">
       <img src="/theater.jpg" alt="theater" className="w-[360px] imgCenter" />
       <div className="w-[100%] h-[auto] bg-slate-400 flex flex-col items-center gap-8 p-10">
         {grid.map((row, rowIndex) => (
-          <div key={rowIndex} className="grid grid-cols-12 gap-8">
+          <div key={rowIndex} className="grid grid-cols-12 gap-12">
             {row}
           </div>
         ))}
